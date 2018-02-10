@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="masthead">  
+<div class="container">
+<div class="row">
+<div class="col-md-7">
+	<h1>Arctic World Blog	</h1>
+</div>
+<div class="col-md-5"></div>
+</div>
+</div> 
+</div><!-- /cont -->
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12"> 
+
+<div class="panel">
+	<br>
+	<a href="{{ url_for('create') }}" type="button" class="btn btn-primary"> Create Post </a>
+	<a href="{{ url_for('blog') }}" type="button" class="btn btn-primary"> Edit Post </a>
+	<a href="{{ url_for('blog') }}" type="button" class="btn btn-primary"> Delete Post </a>
+	<br><br><br>
+	<div id="content"> 
+	<h1> <font color="#08088A"><i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All Blog Posts </i></font></h1>
+	<hr>
+	{% for post in posts|sort(attribute='created', reverse = True) %}
+	<div class="row">    
+	<br>
+	<div class="col-md-2 col-sm-3 text-center">
+	<a class="img"><img src="/img/pole.jpg" style="width:120px;height:120px" class="img-circle"></a>
+	</div>
+	<div class="col-md-10 col-sm-9">
+	<h3><a href="{{ url_for('blogpost', post_id=post.post_id)}}">{{ post.title }}</a></h3>
+	<h4><i>Posted by {{ post.author }} on {{ post.created.strftime('%B %d, %Y at %H:%M') }}.<br>
+	{% if post.updated != post.created %}
+	Updated on {{ post.updated.strftime('%B %d, %Y at %H:%M') }}.
+	{% endif %}
+	</i></h4>
+	<div class="row">
+		<div class="col-xs-9">
+		<h4>{{ post.content|safe|truncate(100) }}</h4>
+		<a class="btn btn-default" href="{{ url_for('blogpost', post_id=post.post_id) }}">Read More</a><br><br>
+		<hr>
+		</div>
+	</div>
+	</div>
+	</div>
+	{% endfor %}
+	</div>
+	</div>
+</div>
+</div>
+</div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="masthead">  
+<div class="container">
+<div class="row">
+<div class="col-md-7">
+	<h1>Create Post	</h1>
+	<h2> &nbsp;&rarr; Here you can create your own post!</font></h2>
+</div>
+<div class="col-md-5"></div>
+</div>
+</div> 
+</div><!-- /cont -->
+
+
+</div>
+
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12"> 
+
+<div class="panel">
+<div class="panel-body">
+<div class="container">
+<div class="row">
+
+<div class="col-md-12"> 
+
+<div class="panel">
+	<div class="panel-body">
+	<!-- Main Content -->
+<div class="container">
+<div class="row">
+	<div class="col-lg-8 col-md-10 mx-auto">
+	<form name="addForm" id="addForm" method="POST" action="{{ url_for('addpost') }}" novalidate>
+	<div class="control-group">
+	<div class="form-group floating-label-form-group controls">
+		<label>Title</label>
+		<input type="text" class="form-control" placeholder="Title" name="title" id="title" required data-validation-required-message="Please enter the title of your post.">
+		<p class="help-block text-danger"></p>
+	</div>
+	</div>
+	<div class="control-group">
+	<div class="form-group floating-label-form-group controls">
+		<label>Author</label>
+		<input type="text" class="form-control" placeholder="Author" name="author" id="author" required data-validation-required-message="Please enter your name here.">
+		<p class="help-block text-danger"></p>
+	</div>
+	</div>
+	<div class="control-group">
+	<div class="form-group floating-label-form-group controls">
+		<label>Main Image</label>
+		<input type="LargeBinary" class="form-control" placeholder="Main Image" id="image">
+		<p class="help-block text-danger"></p>
+	</div>
+	</div>
+	<div class="control-group">
+	<div class="form-group floating-label-form-group controls">
+		<label>Bottom Image</label>
+		<input type="LargeBinary" class="form-control" placeholder="Bottom Image" id="image2">
+		<p class="help-block text-danger"></p>
+	</div>
+	</div>
+	<div class="control-group">
+	<div class="form-group floating-label-form-group controls">
+		<label>Content</label>
+		<textarea rows="10" class="form-control" placeholder="Post content" name="content"  id="content" required data-validation-required-message="Please type your content here."></textarea>
+		<p class="help-block text-danger"></p>
+	</div>
+	</div>
+	<br>
+	<div id="success"></div>
+	<div class="form-group">
+	<button type="submit" class="btn btn-primary" id="sendMessageButton">Send</button>
+	<br><br>
+	</div>
+	</form>
+	</div>
+</div>
+</div>
+
+	</div>
+</div>
+
+	</div><!--/col-12-->
+</div>
+</div>
+
+	</div>
+</div>
+
+	</div><!--/col-12-->
+</div>
+</div>
+
+{% endblock content %}

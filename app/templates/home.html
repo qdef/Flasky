@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="masthead">  
+<div class="container">
+<div class="row">
+<div class="col-md-7">
+	<h1> Arctic World
+	<p class="lead"> <br>Welcome to the website of arctic landscapes and polar bears.</p>
+	</h1>
+</div>
+<div class="col-md-5">
+	<div class="well well-lg"> 
+	<div class="row">
+	<a class="img"><img src="/img/polarbear.jpg" class="img-responsive"></a>
+	</div>
+	</div>
+</div>
+</div> 
+</div>
+</div>
+
+<!-- /container -->
+<div class="container">
+<div class="row">
+
+<div class="col-md-12"> 
+
+<div class="panel">
+	<div class="panel-body">
+	<!--/intro-->
+	<hr>
+	<br><br>
+	<div class="row">    
+	<div class="col-md-3 col-sm-5 text-center">
+	<a class="img"><img src="/img/polar_penguin.jpg" class="img-responsive"></a>
+	</div>
+	<div class="col-md-9 col-sm-7">
+	<div class="row">
+		<div class="col-xs-9">
+		<br>
+		<div class="alert alert-info text-center">
+		<strong><font size="6">Did you know?</font></strong><br>The word "arctic" comes from the greek word "&alpha;&rho;&kappa;&tau;&omicron;&sigmaf;", which means "bear".<br>
+		This is because you can find polar bears only around the north pole, <br> and by opposition, Antarctica is the "pole without bears".<br>
+		However, you can find pretty cool penguins down there!
+		</div>
+		</div>
+		<div class="col-xs-3"></div>
+
+	</div>
+	</div>
+	</div>
+	<br><br>
+	<hr>
+	
+<div class="container">
+<div class="row">
+
+<div class="col-md-12">
+
+<div class="panel">
+	<div id="content"> 
+	<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#08088A"><i><a href="{{ url_for('blog') }}">&rarr;&nbsp; Latest Blog Posts</a></i></font></h1>
+	<br>
+
+	</div>
+	</div>
+
+	{% for post in posts|sort(attribute='created', reverse = True) %}
+	<div class="row">    
+	<br>
+	<div class="col-md-2 col-sm-3 text-center">
+	<a class="img"><img src="/img/pole.jpg" style="width:120px;height:120px" class="img-circle"></a>
+	</div>
+	<div class="col-md-10 col-sm-9">
+	<h3>{{ post.title }}</h3>
+	<h4><i>Posted by {{ post.author }} on {{ post.created.strftime('%B %d, %Y at %H:%M') }}.<br>
+	{% if post.updated != post.created %}
+	Updated on {{ post.updated.strftime('%B %d, %Y at %H:%M') }}.
+	{% endif %}
+	</i></h4>
+	<div class="row">
+		<div class="col-xs-9">
+		<h4>{{ post.content|safe|truncate(100) }}</h4>
+		<p class="lead"><button class="btn btn-default">Read More</button></p><hr>
+		</div>
+	</div>
+	</div>
+	</div>
+	{% endfor %}
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+{% endblock %}
