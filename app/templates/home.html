@@ -66,7 +66,7 @@
 	<div class="row">    
 	<br>
 	<div class="col-md-2 col-sm-3 text-center">
-	<a class="img"><img src="{{ url_for('static', filename='img/pole.jpg') }}" style="width:120px;height:120px" class="img-circle"></a>
+	<a class="img"><img src="{{ url_for('static', filename='img/floe.jpg') }}" style="width:120px;height:120px" class="img-circle"></a>
 	</div>
 	<div class="col-md-10 col-sm-9">
 	<h3><a href="{{ url_for('blogpost', post_id=post.post_id)}}">{{ post.title }}</a></h3>
@@ -78,7 +78,7 @@
 	<div class="row">
 		<div class="col-xs-9">
 		<h4>{{ post.content|safe|truncate(100) }}</h4>
-		<p class="lead"><button class="btn btn-default">Read More</button></p><hr>
+		<a class="btn btn-default" href="{{ url_for('blogpost', post_id=post.post_id) }}">Read More</a><br><br>
 		</div>
 	</div>
 	</div>
