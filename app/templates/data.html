@@ -11,7 +11,7 @@
 <div class="col-md-5">
 	<div class="well well-lg"> 
 	<div class="row">
-	<a class="img"><img src="/img/global_warming.jpg" class="img-responsive"></a>
+	<a class="img"><img src="{{ url_for('static', filename='img/global_warming.jpg') }}" class="img-responsive"></a>
 	<p>Image credit: telegraph.co.uk </p>
 	</div>
 	</div>
@@ -30,7 +30,7 @@
 	<!--/stories-->
 	<div class="row">    
 	<div class="col-md-3 col-sm-5 text-center">
-	<a class="img"><img src="/img/stats.jpg" class="img-responsive"></a>
+	<a class="img"><img src="{{ url_for('static', filename='img/stats.jpg') }}" class="img-responsive"></a>
 	</div>
 	<div class="col-md-9 col-sm-7">
 	<h1> <font color="#81BEF7"><i>Real-time statistics about the Arctic</i></font></h1>
@@ -46,7 +46,7 @@
 	<div class="row">    
 	<br>
 	<div class="col-md-2 col-sm-3 text-center">
-	<a class="img"><img src="/img/floe.jpg" style="width:150px;height:150px" class="img-circle"></a>
+	<a class="img"><img src="{{ url_for('static', filename='img/floe.jpg') }}" style="width:150px;height:150px" class="img-circle"></a>
 	</div>
 	<div class="col-md-10 col-sm-9">
 	<h1> <font color="#81BEF7">Arctic sea ice data </font></h1>
@@ -66,7 +66,7 @@
 		<div class="row">    
 	<br>
 	<div class="col-md-2 col-sm-3 text-center">
-	<a class="img"><img src="/img/pole.jpg" style="width:150px;height:150px" class="img-circle"></a>
+	<a class="img"><img src="{{ url_for('static', filename='img/pole.jpg') }}" style="width:150px;height:150px" class="img-circle"></a>
 	</div>
 	<div class="col-md-10 col-sm-9">
 	<h1> <font color="#81BEF7">Temperatures in the arctic </font></h1>
@@ -90,15 +90,16 @@
 		<div class="row">    
 	<br>
 	<div class="col-md-2 col-sm-3 text-center">
-	<a class="img"><img src="/img/bears.jpg" style="width:150px;height:150px" class="img-circle"></a>
+	<a class="img"><img src="{{ url_for('static', filename='img/bears.jpg') }}" style="width:150px;height:150px" class="img-circle"></a>
 	</div>
 	<div class="col-md-10 col-sm-9">
 	<h1> <font color="#81BEF7">Total number of wild polar bears (estimations) </font></h1>
 	<div class="row">
 		<div class="col-xs-9">
 		<h4>There are about 26,000 polar bears in the world nowadays.<br>
-		<br> 60 to 80% of the polar bears are in Canada.
+		<br> 60 to 80% of the polar bears are in Canada.<br>
 		</h4>
+		<img src="http://wwf.panda.org/_core/general.cfc?method=getOriginalImage&amp;uImgID=%26%2AB%20%26%22N%5F6%0A" " width="600"> </img>
 		<br><br>
 		<p class="lead"><a href="https://www.iucn.org/" target="blank" class="btn btn-default">Source IUCN</a></p>
 		</div>
