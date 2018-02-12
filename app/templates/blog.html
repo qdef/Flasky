@@ -20,6 +20,16 @@
 	<br>
 	<a href="{{ url_for('create') }}" type="button" class="btn btn-primary"> Create Post </a>
 	<br><br><br>
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+	<ul class=flashes>
+	{% for message in messages %}
+	<div class="alert alert-info"><strong>{{ message }}</strong></li>
+	</div>
+	{% endfor %}
+	</ul>
+	{% endif %}
+	{% endwith %}
 	<div id="content"> 
 	<h1> <font color="#08088A"><i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All Blog Posts </i></font></h1>
 	<hr>
