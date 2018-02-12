@@ -15,6 +15,11 @@ footer {
   font-style: italic;
 }
 
+@font-face {
+    font-family: blanka;
+    src: url(blanka.otf);
+}
+
 
 #masthead {
   min-height:140px;
