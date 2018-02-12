@@ -16,7 +16,24 @@
 	<br>
 	<a href="{{ url_for('create') }}" type="button" class="btn btn-primary"> Create Post </a>
 	<a href="{{ url_for('blog') }}" type="button" class="btn btn-primary"> Edit Post </a>
-	<a href="{{ url_for('blog') }}" type="button" class="btn btn-primary"> Delete Post </a>
+	<a type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Delete Post</a>
+	<!-- Modal -->
+		<div id="myModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Post Deletion Confirmation</h4>
+		</div>
+		<div class="modal-body">
+			<p>Are you sure that you want to delete this post? This operation is irreversible.</p> <br> <br>
+			<a href="{{ url_for('delete(post_id)') }}" type="button" class="btn btn-warning">Delete Post</a>
+			<a type="button" class="btn btn-info" data-dismiss="modal">Cancel</a>
+		</div>
+		</div>
+		</div>
+		</div>
 	<div id='content'>
 	<br><br>
 	<div class="panel-body">
