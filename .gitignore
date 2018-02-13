@@ -9,7 +9,6 @@ __pycache__/
 # Wing project files
 *.wpr
 
-routes.py
 
 # Distribution / packaging
 .Python
