@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="masthead">  
+<div class="container">
+<div class="row">
+<div class="col-md-7">
+	<h1>Post edition form</h1>
+	<h2> &nbsp;&rarr; Here you can edit the post</font></h2>
+</div>
+<div class="col-md-5"></div>
+</div>
+</div> 
+</div>
+</div>
+
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12"> 
+
+<div class="panel">
+<div class="panel-body">
+<div class="container">
+<div class="row">
+
+<div class="col-md-12"> 
+
+<div class="panel">
+	<div class="panel-body">
+	<!-- Main Content -->
+<div class="container">
+<div class="row">
+	<div class="col-lg-8 col-md-10 mx-auto">
+	<form name="{{ url_for('edit',  post_id=post.post_id)}}" method="POST">
+	<div class="control-group">
+	<div class="form-group floating-label-form-group controls">
+	<label for = "title">Title</label><br>
+	<input type="text" class="form-control" name="title" value="{{ post.title }}" />
+	<p class="help-block text-danger"></p>
+	</div>
+	</div>
+	<div class="control-group">
+	<div class="form-group floating-label-form-group controls">
+	<label for = "author">Author</label>
+	<input type="text" class="form-control" name="author" value="{{ post.author }}"/>
+	<p class="help-block text-danger"></p>
+	</div>
+	</div>
+	<div class="control-group">
+		<div class="form-group floating-label-form-group controls">
+			<label>Main Image</label>
+			<input type="LargeBinary" class="form-control" placeholder="Main Image" id="image">
+			<p class="help-block text-danger"></p>
+		</div>
+		</div>
+		<div class="control-group">
+		<div class="form-group floating-label-form-group controls">
+			<label>Bottom Image</label>
+			<input type="LargeBinary" class="form-control" placeholder="Bottom Image" id="image2">
+			<p class="help-block text-danger"></p>
+		</div>
+		</div>
+	<div class="control-group">
+	<div class="form-group floating-label-form-group controls">
+		<label for "content">Content</label>
+		<textarea rows="10" class="form-control" name="content" >{{ post.content }}</textarea><br>
+	<p class="help-block text-danger"></p>
+	</div>
+	</div>
+	<br>
+	<div id="success"></div>
+	<div class="form-group">
+	<button type="submit" class="btn btn-primary" id="sendMessageButton">Submit</button>
+	<br><br>
+	</div>
+	</form>
+	</div>
+</div>
+</div>
+
+	</div>
+</div>
+
+	</div><!--/col-12-->
+</div>
+</div>
+
+	</div>
+</div>
+
+	</div><!--/col-12-->
+</div>
+</div>
+
+{% endblock content %}

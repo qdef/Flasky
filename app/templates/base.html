@@ -47,7 +47,9 @@
 	  <div class="input-group">
 	  {% from "_formhelpers.html" import render_field %}
             <form method=post class="form-inline">
+	    {% if form.search is defined %}
 		{{ render_field(form.search) }}
+	    {% endif %}
 	    <input class="btn btn-default" type=submit value=Search placeholder="Search in posts...">
 	      </form>
 	       </div>

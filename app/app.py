@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from scraping import Scraping
 from forms import PostSearchForm
-import sqlite3
 
 # The static url path is essential to render the bootstrap correctly.
 app = Flask(__name__)
@@ -37,12 +36,8 @@ def home():
 
 @app.route('/search')
 def search_results(search):
-	results = []
 	search_string = search.data['search']
 	posts = BlogPost.query.all()
-	#if not results:
-		#flash('Sorry, no results matched your post search.')
-		#return redirect(url_for('blog'))
 	return render_template('search.html', search_string=search_string, posts=posts, form=search)
 
 
@@ -62,6 +57,27 @@ def create():
 	if request.method == 'POST':
 		return search_results(search)	
 	return render_template('create.html', form=search)
+
+@app.route('/edit/post/<int:post_id>', methods=['GET', 'POST'])
+def edit(post_id):
+	search = PostSearchForm(request.form)
+	post = BlogPost.query.filter_by(post_id=post_id).one()
+	if request.method == 'POST':
+		try:		
+			title = request.form['title']
+			content = request.form['content']
+			author = request.form['author']
+			post.title = title
+			post.content = content
+			post.author = author
+			db.session.commit()
+			flash('The post was successfully edited!')
+			return redirect(url_for('blog', post_id=post_id))
+		except:
+			flash('The post modification process failed. Please try again.')
+			return redirect(url_for('blog', post_id=post_id))			
+	else:
+		return render_template('edit.html', post=post, form=search)
 
 
 @app.route('/post/<int:post_id>', methods=['GET', 'POST'])

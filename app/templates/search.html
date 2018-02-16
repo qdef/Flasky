@@ -23,8 +23,10 @@
 	<div id="content"> 
 	<h1> <font color="#08088A"><i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search Results</i></font></h1>
 	<hr>
+	{% set count = [0] %}
 	{% for post in posts|sort(attribute='created', reverse = True) %}
 	{% if search_string in post.title or search_string in post.author or search_string in post.content %}
+	{% if count.append(count.pop() + 1) %}{% endif %}
 	<div class="row">    
 	<br>
 	<div class="col-md-2 col-sm-3 text-center">
@@ -48,6 +50,10 @@
 	</div>
 	{% endif %}
 	{% endfor %}
+	{% if count == [0] %}
+	<div class="alert alert-info"><strong>Sorry, no blog posts matched your search query.</strong></div>
+	{% endif %}
+
 	</div>
 	</div>
 </div>
