@@ -64,7 +64,6 @@ def signup():
 	form = RegisterForm()
 	if form.validate_on_submit():
 		hashed_password = generate_password_hash(form.password.data, method='sha256')
-		hashed_password
 		new_user=User(public_id=str(uuid.uuid4()), username=form.username.data, email=form.email.data, password=hashed_password, admin=False)
 		db.session.add(new_user)
 		db.session.commit()
@@ -76,6 +75,7 @@ def signup():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+	""" modify things here so it does not always redirect to blog.html ! """
 	form = LoginForm()
 	if form.validate_on_submit():
 		user= User.query.filter_by(username=form.username.data).first()
@@ -93,6 +93,7 @@ def logout():
 	logout_user()
 	flash('You successfully logged out.')
 	return redirect(url_for('blog'))
+
 
 #__________________________MAIN PAGES ROUTES_____________________________
 
@@ -136,9 +137,6 @@ def data():
 	khatanga = all_temperatures.Khatanga()
 	return render_template('data.html', longyearbyen=longyearbyen, yellowknife=yellowknife, iqaluit=iqaluit, nuuk=nuuk, qaanaaq=qaanaaq, khatanga=khatanga)
 
-@app.route('/api', methods=['GET'])
-def api():
-	return render_template('api.html')
 
 #__________________________POST MANAGEMENT VIA WEBSITE_____________________________
 
@@ -204,6 +202,11 @@ def delete(post_id):
 
 #__________________________DATA EXTRACTION VIA API_____________________________
 
+@app.route('/api', methods=['GET'])
+def api():
+	return render_template('api.html')
+
+#Displays all posts of the blog in JSON format.
 @app.route('/api/posts', methods=['GET'])
 @login_required
 def get_all_posts():
@@ -220,11 +223,13 @@ def get_all_posts():
 		output.append(post_data)
 	return jsonify({'posts': output})
 
+#Form to pick the post id that has to be extracted in JSON format
 @app.route('/api/post-id', methods=['GET'])
 @login_required
 def detail_post_id():
 	return render_template('api-detail-post.html')
 
+#Displays one specific blog post in JSON format.
 @app.route('/api/post-detail', methods=['POST'])
 @login_required
 def detail_post():
@@ -245,6 +250,7 @@ def detail_post():
 	post_data['content'] = post.content
 	return jsonify({'post': post_data})
 
+#Displays all users of the blog in JSON format (if the current user is admin)
 @app.route('/api/users', methods=['GET'])
 @login_required
 def get_all_users():
@@ -264,6 +270,7 @@ def get_all_users():
 		flash('Only admins can access the users list.')
 		return redirect(url_for('api'))
 
+#Displays the information on the current user in JSON format.
 @app.route('/api/user-info', methods=['GET'])
 @login_required
 def get_one_user():
