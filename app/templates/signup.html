@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% import "wtf.html" as wtf %}
+
+{% block content %}
+<div id="masthead">  
+<div class="container">
+<div class="row">
+<div class="col-md-10">
+	<h1> <font face="blanka" color="#424242">SIGN UP</font>
+</div>
+</div> 
+</div><!-- /cont -->
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12"> 
+
+<div class="panel">
+	<div class="container">
+	<div class="row">
+	<div class="col-lg-8 col-md-10 mx-auto">
+	<form class="form-group floating-label-form-group controls" method="POST" action="/signup"> 
+	<h2 class="form-signin-heading"> Please Sign up </h2>
+	<br>
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+	<ul class=flashes>
+	{% for message in messages %}
+	<div class="alert alert-info"><strong>{{ message }}</strong></li>
+	</div>
+	{% endfor %}
+	</ul>
+	<br>
+	{% endif %}
+	{% endwith %}
+	{{ form.hidden_tag() }}
+	{{ wtf.form_field(form.username) }}
+	{{ wtf.form_field(form.email) }}
+	{{ wtf.form_field(form.password) }}
+	<button class="btn btn-lg btn-primary" type="submit">Sign up</button>
+	</form>
+	<br><br>
+	</div>
+	</div>
+	<div id='content'>
+	<h1><font color="#08088A"><i><a href="{{ url_for('blog') }}">&rarr;&nbsp;Back to Blog</a></i></font></h1>
+	</div>
+	<br>
+	</div>
+</div>
+</div>
+</div><!--/col-12-->
+</div>
+
+{% endblock content %}
+

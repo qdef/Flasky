@@ -38,24 +38,11 @@
         </li>
         <li>
           <a href="{{ url_for('contact') }}">Contact</a>
-        </li>
-      </ul>
-      <ul class="nav navbar-right navbar-nav">
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown"><i>Blog Search &darr;</i></a>
-          <ul class="dropdown-menu" style="padding:12px;">
-	  <div class="input-group">
-	  {% from "_formhelpers.html" import render_field %}
-            <form method=post class="form-inline">
-	    {% if form.search is defined %}
-		{{ render_field(form.search) }}
-	    {% endif %}
-	    <input class="btn btn-default" type=submit value=Search placeholder="Search in posts...">
-	      </form>
-	       </div>
-          </ul>
-        </li>
-      </ul>
+	</li>
+	</ul>
+	  <ul class="nav navbar-nav navbar-right">
+	  <li><a href="{{ url_for('api') }}" class="navbar-brand"> For Developers &nbsp;&nbsp;&nbsp; </a></li>
+	</ul>
     </nav>
   </div>
 </header>
@@ -79,7 +66,7 @@
 <footer>
   <div class="containerNew">
       <a class="img"><img src="{{ url_for('static', filename='img/panorama.jpg') }}" class="img-responsive"></a>
-          <h3 class="pull-right"> Copyright &copy; {{ now.year }} Arctic World.&nbsp;&nbsp;&nbsp;</a></h3>      
+          <h3 class="pull-right"> Copyright &copy; {{ now.year }} Arctic World.&nbsp;&nbsp;&nbsp;</h3>      
   </div>
 </footer>
 	<!-- script references -->

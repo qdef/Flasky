@@ -67,26 +67,6 @@ class Scraping:
 		else:
 			temperature_khatanga="[Data not available]"			
 		return temperature_khatanga 	
-	
-	#def Akureyki(self):
-		#website = requests.get('https://weather.com/fr-FR/temps/aujour/l/7fc10552ff7adf2a0c3b86d7bef790b6375e4440db32829bde5e3b0dca75f3cb')
-		#tree=html.fromstring(website.content)
-		#temperature_akureyki=tree.xpath('//div[@class="today_nowcard-temp"]/span/text()')
-		#if temperature_akureyki:
-			#temperature_akureyki=temperature_akureyki[0]
-		#else:
-			#temperature_akureyki="[Data not available]"			
-		#return temperature_akureyki 
-	
-	#def Barrow(self):
-		#website = requests.get('https://weather.com/fr-FR/temps/aujour/l/de7bff1f293b6364458579235959bd65a4954ddf864d518036d3270b623ce48d')
-		#tree=html.fromstring(website.content)
-		#temperature_barrow=tree.xpath('//div[@class="today_nowcard-temp"]/span/text()')
-		#if temperature_barrow:
-			#temperature_barrow=temperature_barrow[0]
-		#else:
-			#temperature_barrow="[Data not available]"			
-		#return temperature_barrow
 
 
 	

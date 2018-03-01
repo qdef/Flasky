@@ -1,35 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<!-- Header -->
 <div id="masthead">  
 <div class="container">
 <div class="row">
 <div class="col-md-7">
-	<h1>Post edition form</h1>
-	<h2> &nbsp;&rarr; Here you can edit the post</font></h2>
-</div>
-<div class="col-md-5"></div>
+	<h1> <font face="blanka" color="#424242">Edit Post</font>
 </div>
 </div> 
 </div>
 </div>
 
-
-<div class="container">
-<div class="row">
-
+<!-- Container -->
 <div class="col-md-12"> 
-
 <div class="panel">
 <div class="panel-body">
-<div class="container">
-<div class="row">
-
-<div class="col-md-12"> 
-
-<div class="panel">
-	<div class="panel-body">
-	<!-- Main Content -->
 <div class="container">
 <div class="row">
 	<div class="col-lg-8 col-md-10 mx-auto">
@@ -44,7 +30,7 @@
 	<div class="control-group">
 	<div class="form-group floating-label-form-group controls">
 	<label for = "author">Author</label>
-	<input type="text" class="form-control" name="author" value="{{ post.author }}"/>
+	<div class="alert alert-info"><strong>{{ post.author }}</strong></li></div>
 	<p class="help-block text-danger"></p>
 	</div>
 	</div>
@@ -80,18 +66,9 @@
 </div>
 </div>
 
-	</div>
-</div>
-
-	</div><!--/col-12-->
 </div>
 </div>
-
-	</div>
-</div>
-
-	</div><!--/col-12-->
-</div>
+</div><!--/col-12-->
 </div>
 
 {% endblock content %}
