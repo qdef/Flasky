@@ -5,7 +5,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField
 from wtforms.validators import InputRequired, Email, Length
 from datetime import date, datetime, timedelta
-from scraping import Scraping
+from weather_api import WeatherAPI
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from functools import wraps
@@ -96,15 +96,16 @@ def about():
 #This function uses web scraping to display real-time temperatures.
 @app.route('/data', methods=['GET'])
 def data():
-	all_temperatures = Scraping()
-	longyearbyen =all_temperatures.Longyearbyen()
-	yellowknife = all_temperatures.Yellowknife()
-	iqaluit = all_temperatures.Iqaluit()
-	nuuk = all_temperatures.Nuuk()
-	qaanaaq = all_temperatures.Qaanaaq()
-	khatanga = all_temperatures.Khatanga()
-	return render_template('data.html', longyearbyen=longyearbyen, yellowknife=yellowknife, iqaluit=iqaluit, nuuk=nuuk, qaanaaq=qaanaaq, khatanga=khatanga)
-
+	temperatures = WeatherAPI()
+	northpole = temperatures.api_call(90.0, 0.0)
+	longyearbyen = temperatures.api_call(78.21, 15.54)
+	alert = temperatures.api_call(82.50, -62.34)
+	iqaluit = temperatures.api_call(63.74, -68.51)
+	northgreenland = temperatures.api_call(83.63, -34.04)
+	qaanaaq = temperatures.api_call(77.46, -69.22)
+	nordvik = temperatures.api_call(74.01, 111.47)
+	rudolf = temperatures.api_call(81.78, 58.66)
+	return render_template('data.html', northpole=northpole, longyearbyen=longyearbyen, alert=alert, iqaluit=iqaluit, northgreenland=northgreenland, qaanaaq=qaanaaq, nordvik=nordvik, rudolf=rudolf)
 
 #__________________________USERS MANAGEMENT_____________________________
 
@@ -279,3 +280,4 @@ def inject_now():
 
 if __name__ == '__main__':
 	app.run(debug=True)
+	db.create_all()

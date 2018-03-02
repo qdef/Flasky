@@ -1,3 +1,9 @@
+"""README:
+This class is now obsolete: the temperatures are now retrieved from an API instead of a weather website.
+This enables the data page loading to be way faster, without any connection issues.
+We kept this file for information on how to do web scraping if need be.
+"""
+
 import requests
 from lxml import html
 
