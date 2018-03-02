@@ -60,7 +60,7 @@
 
 <div class="panel">
 	<div id="content"> 
-	<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#08088A"><i><a href="{{ url_for('blog') }}">Latest Blog Posts</a></i></font></h1>
+	<h1> <font color="#08088A"><i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Latest Blog Posts </i></font></h1>
 	<br>
 	{% for post in posts|sort(attribute='created', reverse = True) %}
 	<div class="row">    

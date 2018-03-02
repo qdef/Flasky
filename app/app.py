@@ -1,67 +1,28 @@
 from flask import Flask, flash, render_template, request, session, redirect, url_for, jsonify, make_response, Response
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField
-from wtforms.validators import InputRequired, Email, Length
 from datetime import date, datetime, timedelta
 from weather_api import WeatherAPI
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from flask_marshmallow import Marshmallow
+from forms import LoginForm, RegisterForm, User, BlogPost, UserSchema, PostSchema
 from functools import wraps
 import uuid
 
+#Flask app initiation and configuration:
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'super secret key'
-
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = 'login'
-
-#_____________________DATABASES_____________________
-
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
+#Database creation:
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
-class LoginForm(FlaskForm):
-	username = StringField('Username', validators=[InputRequired(), Length(min=4, max=20)])
-	password = PasswordField('Password', validators=[InputRequired(), Length(min=6, max=80)])
-	
-class RegisterForm(FlaskForm):
-	email = StringField('e-mail', validators = [InputRequired(), Email(message='Invalid e-mail'), Length(max=70)])
-	username = StringField('Username', validators=[InputRequired(), Length(min=4, max=20)])
-	password = PasswordField('Password', validators=[InputRequired(), Length(min=6, max=80)])
-
-class User(UserMixin, db.Model):
-	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-	public_id = db.Column(db.String(50), unique=True)
-	username = db.Column(db.String(20), unique=True)
-	password=db.Column(db.String(80))
-	email = db.Column(db.String(70), unique=True)
-	admin = db.Column(db.Boolean)
-	
-class BlogPost(db.Model):
-	post_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-	title = db.Column(db.String(150))
-	image = db.Column(db.LargeBinary)
-	image2 = db.Column(db.LargeBinary)
-	author = db.Column(db.String(20))
-	created = db.Column(db.DateTime)
-	updated = db.Column(db.DateTime)
-	content = db.Column(db.Text)
-	
-#Marshmallow classes: 
-class UserSchema(ma.ModelSchema):
-	class Meta:
-		model = User
-
-class PostSchema(ma.ModelSchema):
-	class Meta:
-		model = BlogPost
-
+#Login system initiation:
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
 
 #__________________________MAIN PAGES ROUTES_____________________________
 
@@ -93,7 +54,7 @@ def contact():
 def about():
 	return render_template('about.html')
 
-#This function uses web scraping to display real-time temperatures.
+#This function extracts data from an API display real-time temperatures.
 @app.route('/data', methods=['GET'])
 def data():
 	temperatures = WeatherAPI()
@@ -105,14 +66,17 @@ def data():
 	qaanaaq = temperatures.api_call(77.46, -69.22)
 	nordvik = temperatures.api_call(74.01, 111.47)
 	rudolf = temperatures.api_call(81.78, 58.66)
-	return render_template('data.html', northpole=northpole, longyearbyen=longyearbyen, alert=alert, iqaluit=iqaluit, northgreenland=northgreenland, qaanaaq=qaanaaq, nordvik=nordvik, rudolf=rudolf)
+	return render_template('data.html', northpole=northpole, alert=alert, iqaluit=iqaluit, northgreenland=northgreenland, qaanaaq=qaanaaq, nordvik=nordvik, rudolf=rudolf, longyearbyen=longyearbyen)
+
 
 #__________________________USERS MANAGEMENT_____________________________
 
+#Loading an existing user from the database
 @login_manager.user_loader
 def load_user(user_id):
 	return User.query.get(int(user_id))
 
+#Function to sign up to the website
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
 	form = RegisterForm()
@@ -121,15 +85,15 @@ def signup():
 		new_user=User(public_id=str(uuid.uuid4()), username=form.username.data, email=form.email.data, password=hashed_password, admin=False)
 		db.session.add(new_user)
 		db.session.commit()
-		flash('New user has been successfully created!')
-		return redirect(url_for('blog'))
+		flash('New user has been successfully created! Please enter your credentials to login.')
+		return redirect(url_for('login'))
 	else:
 		flash('Username has to be less than 50 characters. Password must be between 6 and 80 characters.')
 		return render_template('signup.html', form=form)
 
+#Function to login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-	""" modify things here so it does not always redirect to blog.html ! """
 	form = LoginForm()
 	if form.validate_on_submit():
 		user= User.query.filter_by(username=form.username.data).first()
@@ -138,16 +102,16 @@ def login():
 				login_user(user, remember=True)
 				flash('You successfully logged in.')
 				return redirect(url_for('blog'))
-	#flash('Failed to log in. Please verify your username and password and try again.')
+	flash('Failed to log in. Please verify your username and password and try again.')
 	return render_template('login.html', form=form)
 
+#Function to logout
 @app.route('/logout')
 @login_required
 def logout():
 	logout_user()
 	flash('You successfully logged out.')
 	return redirect(url_for('blog'))
-
 
 #__________________________POST MANAGEMENT VIA WEBSITE_____________________________
 
@@ -172,7 +136,7 @@ def addpost():
 		flash('Your post was not created successfully. Please try again.')	
 		return redirect(url_for('blog'))
 
-# Function to edit a post:
+# Function to edit a post (only for its author)
 @app.route('/edit/post/<int:post_id>', methods=['GET', 'POST'])
 def edit(post_id):
 	post = BlogPost.query.filter_by(post_id=post_id).first()
@@ -194,7 +158,7 @@ def edit(post_id):
 	else:
 		return render_template('edit.html', post=post)
 
-# Function to delete a post:
+# Function to delete a post (only for its author)
 @app.route('/delete/<int:post_id>', methods=['GET', 'POST'])
 def delete(post_id):
 	post = BlogPost.query.filter_by(post_id=post_id).first()

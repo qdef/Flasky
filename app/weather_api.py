@@ -8,7 +8,7 @@ class WeatherAPI:
 		call_and_token = call+'&APPID=5e087b669666e00e055234e599710347'
 		response = requests.get(call_and_token)
 		data = response.json()
-		return data['main']['temp']
+		return int(data['main']['temp'])
 
 
 
