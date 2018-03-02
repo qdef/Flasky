@@ -13,7 +13,7 @@ import uuid
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'super secret key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 #Database creation:
 db = SQLAlchemy(app)
