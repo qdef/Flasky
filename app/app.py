@@ -183,7 +183,6 @@ def api():
 
 #Displays all posts of the blog in JSON format (serialized with Marshmallow)
 @app.route('/api/posts')
-@login_required
 def get_all_posts():
 	posts = BlogPost.query.all()
 	posts_schema = PostSchema(many=True)
