@@ -39,8 +39,7 @@
 	{% endif %}
 	{% endwith %}
 	<br><br>
-	{% if current_user.is_authenticated %}
-	
+	{% if current_user.is_authenticated %}	
 	<form name="addForm" id="addForm" method="POST" action="{{ url_for('detail_post') }}" novalidate>
 	<div class="control-group">
 	<div class="form-group floating-label-form-group controls">
